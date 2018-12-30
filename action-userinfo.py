@@ -20,8 +20,7 @@ class SnipsConfigParser(ConfigParser.SafeConfigParser):
     def to_dict(self):
         return {section: {option_name : option for option_name, option in self.items(section)} for section in self.sections()}
 
-class UserInfo(user, assistant):
-
+class UserInfo:
     def __init__(self, user, assistant):
         self.user = user
         self.assistant = assistant
@@ -106,9 +105,9 @@ if __name__ == "__main__":
     user = config.get("secret").get("username")
     assistant = config.get("secret").get("assistantname")
 
-    if USER is None:
+    if user is None:
         print "No username set in config.ini, you must setup a username for this skill to work"
-    elif ASSISTANT is None:
+    elif assistant is None:
         print "No assistantname set in config.ini, you must setup a assistantname for this skill to work"
 
     skill = UserInfo(user, assistant)
