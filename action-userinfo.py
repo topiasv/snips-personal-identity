@@ -8,6 +8,7 @@ import io
 import os
 import sys
 import json
+import logging
 
 CONFIGURATION_ENCODING_FORMAT = "utf-8"
 CONFIG_INI = "config.ini"
@@ -39,7 +40,7 @@ class UserInfo:
         elif user == "I":
             return self.user
 
-    def speakUserInfo(self, user, type, value):
+    def speakUserInfo(self, user, type):
         if user == self.assistant:
             if type == "identity":
                 return "{}, your assistant."
@@ -93,10 +94,9 @@ def getInfo(snips):
     return None
 
 def queryUserInfo(hermes, intent_message):
-    user = getUser(intent_message)
+    user = hermes.skill.getUserIdentity(getUser(intent_message))
     info = getInfo(intent_message)
-    value = hermes.skill.getUserInfo(user, info)
-    res = hermes.skill.speakUserInfo(user, info, value)
+    res = hermes.skill.speakUserInfo(user, info)
     current_session_id = intent_message.session_id
     hermes.publish_end_session(current_session_id, res.decode("latin-1"))
 
