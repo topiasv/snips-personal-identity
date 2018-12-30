@@ -99,7 +99,7 @@ def queryUserInfo(hermes, intent_message):
     value = hermes.skill.getUserInfo(user, info)
     res = hermes.skill.speakUserInfo(user, info, value)
     current_session_id = intent_message.session_id
-    hermes.publish_end_session(current_session_id, res.decode("latin-1
+    hermes.publish_end_session(current_session_id, res.decode("latin-1"))
 
 if __name__ == "__main__":
     config = read_configuration_file("config.ini")
