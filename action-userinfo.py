@@ -24,7 +24,7 @@ class UserInfo:
     def __init__(self, user, assistant):
         self.user = user
         self.assistant = assistant
-        initDb(self)
+        self.initDb()
 
     def initDb(self):
         with open('mockdb.json') as f:
@@ -114,6 +114,6 @@ if __name__ == "__main__":
 
     with Hermes(MQTT_ADDR.encode("ascii")) as h:
         h.skill = skill
-        h.subscribe_intent("getUserInfo",
-                           getUserInfo) \
+        h.subscribe_intent("queryUserInfo",
+                           queryUserInfo) \
         .loop_forever()
